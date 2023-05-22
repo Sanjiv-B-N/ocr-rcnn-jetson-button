@@ -30,6 +30,7 @@ Before running the code, please first download the [model](https://drive.google.
 5. *ocr_graph_optimized.pb*:  an optimized version of the recognition model.
 
 Please place the frozen_model folder in src/button_recognition/scripts/ocr_rnn_lib
+
 For running on laptops and desktops (x86_64), you may need to install some packages :
 
 1. `sudo apt install libjpeg-dev libpng-dev libfreetype6-dev libxml2-dev libxslt1-dev `
