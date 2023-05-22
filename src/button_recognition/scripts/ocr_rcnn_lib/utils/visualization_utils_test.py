@@ -24,7 +24,8 @@ import os
 
 import numpy as np
 import PIL.Image as Image
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 from object_detection.utils import visualization_utils
 

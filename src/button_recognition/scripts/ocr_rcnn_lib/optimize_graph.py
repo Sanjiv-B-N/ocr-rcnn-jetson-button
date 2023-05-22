@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import os
 import sys
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 from tensorflow.python.platform import gfile
 from tensorflow.python.tools import optimize_for_inference_lib
 # from tensorflow.contrib.lite.toco.python

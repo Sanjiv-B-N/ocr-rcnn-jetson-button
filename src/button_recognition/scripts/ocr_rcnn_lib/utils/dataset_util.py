@@ -14,8 +14,8 @@
 # ==============================================================================
 
 """Utility functions for creating TFRecord data sets."""
-
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 
 def int64_feature(value):

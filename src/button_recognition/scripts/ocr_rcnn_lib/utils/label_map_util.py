@@ -17,9 +17,10 @@
 
 import logging
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 from google.protobuf import text_format
-import string_int_label_map_pb2
+from utils import string_int_label_map_pb2
 
 
 def _validate_label_map(label_map):

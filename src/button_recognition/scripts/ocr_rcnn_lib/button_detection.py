@@ -3,7 +3,8 @@ import os
 import PIL.Image
 import imageio
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 from utils import label_map_util
 from utils import visualization_utils as vis_util
 
@@ -27,9 +28,9 @@ class ButtonDetector:
 
     # load graph and label map from default folder
     if self.graph_path is None:
-      self.graph_path = './frozen_model/detection_graph.pb'
+      self.graph_path = '/home/satarw/Documents/ocr-rcnn-v2/src/button_recognition/scripts/ocr_rcnn_lib/frozen_model/detection_graph.pb'
     if self.label_path is None:
-      self.label_path = './frozen_model/button_label_map.pbtxt'
+      self.label_path = '/home/satarw/Documents/ocr-rcnn-v2/src/button_recognition/scripts/ocr_rcnn_lib/frozen_model/button_label_map.pbtxt'
 
     # check existence of the two files
     if not os.path.exists(self.graph_path):

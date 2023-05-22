@@ -5,7 +5,8 @@ import cv2
 import imageio
 import PIL.Image
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 from button_detection import ButtonDetector
 from character_recognition import CharacterRecognizer
 
@@ -49,7 +50,7 @@ def warm_up(detector, recognizer):
   recognizer.predict(button)
 
 if __name__ == '__main__':
-    data_dir = './test_panels'
+    data_dir = '/home/satarw/Documents/ocr-rcnn-v2/src/button_recognition/scripts/ocr_rcnn_lib/test_panels'
     data_list = get_image_name_list(data_dir)
     detector = ButtonDetector()
     recognizer = CharacterRecognizer(verbose=False)

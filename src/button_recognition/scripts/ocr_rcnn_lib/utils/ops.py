@@ -1,4 +1,5 @@
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 def native_crop_and_resize(image, boxes, crop_size, scope=None):
   """Same as `matmul_crop_and_resize` but uses tf.image.crop_and_resize."""

@@ -16,7 +16,8 @@
 """Tests for object_detection.utils.label_map_util."""
 
 import os
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 from google.protobuf import text_format
 from object_detection.protos import string_int_label_map_pb2

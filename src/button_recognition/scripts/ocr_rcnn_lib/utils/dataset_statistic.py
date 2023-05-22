@@ -9,7 +9,8 @@ import pickle
 import shutil
 import numpy as np
 from lxml import etree
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import matplotlib.pyplot as plt
 from datasets import dataset_util
 

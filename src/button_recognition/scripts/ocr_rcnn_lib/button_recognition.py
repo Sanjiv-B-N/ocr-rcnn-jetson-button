@@ -2,7 +2,8 @@
 import os
 import imageio
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 from PIL import Image, ImageDraw, ImageFont
 from utils.ops import native_crop_and_resize
 from utils import visualization_utils as vis_util

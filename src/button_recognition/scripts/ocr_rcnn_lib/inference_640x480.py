@@ -6,7 +6,8 @@ import imageio
 import PIL.Image
 import PIL.ImageOps as ImageOps
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 from button_recognition import ButtonRecognizer
 
 DRAW = False
