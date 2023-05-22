@@ -1,3 +1,5 @@
+Forked from [here](https://github.com/zhudelong/ocr-rcnn-v2/tree/master)
+
 # OCR-RCNN: An Accurate and Efficient Framework for Elevator Button Recognition
 
 # FOR ICRA-2021, THE VIDEO DEMO CAN BE FOUND AT https://youtu.be/GD2MeZhoYXg
@@ -5,21 +7,19 @@
   <p align="center">
     <img src="./src/button_recognition/scripts/ocr_rcnn_lib/demos/demo_10.jpg">
 
-## The [BUTTON DATASET](https://mycuhk-my.sharepoint.com/:u:/g/personal/1155067732_link_cuhk_edu_hk/EXk9Wqtilt9OlwlnpUtzJ50BmDu6vObE-ZjW2H6iVgUiZQ?e=0QJAyB) used for detection and ocr is available now. A ``dataset_statistics.py`` in the utils folder is also provided for dataset manipulation.
 
-Cascaded OCR-RCNN is designed for autonomous elevator manipulation, the goal of which is to enable the robot to autonomously operate elevators that are previously unvisited. This repository contains the perception part of this project.  We published the initial version in paper  [A Novel OCR-RCNN for Elevator Button Recognition](https://ieeexplore.ieee.org/abstract/document/8594071) and this version improves the accuracy by 20% and achieves a real-time running speed ~10FPS (640*480)  on a graphical card (>=GTX950).  We have also tested on a laptop installed with a GTX950M (2G memory). It can achieves a running speed of ~6FPS. We are working on optimizing the TX2 version to make it faster,  which will be soon released with the dataset, as well as the post-processing code. 
+Cascaded OCR-RCNN is designed for autonomous elevator manipulation, the goal of which is to enable the robot to autonomously operate elevators that are previously unvisited. This repository contains the perception part of my internship project with Ugo Inc. Till date, I have made the code compatible for higher versions of ubuntu, python, Tensorflow and Tensorrt. 
 
 ### Requirements
 
-1.  Ubuntu == 16.04
-2.  TensorFlow == 1.12.0
-3.  Python == 2.7
-4.  Tensorrt == 4.0 (optional)
-5.  2GB GPU (or shared) memory 
+1.  Ubuntu == 22.04 (Arch linux also work but equivalent packages need to be installed)
+2.  TensorFlow v2
+3.  Python3
+4.  Tensorrt == 8.6.1 
+5.  2GB GPU (or shared) memory (optional)
 
 ### Inference
 
-Note: the inference code is moved to **perception** branch and the master branch is used for holding the whole system code, so please check out perception branch for inference!
 
 Before running the code, please first download the [model](https://drive.google.com/file/d/1FVXI-G-EsCrkKbknhHL-9Y1pBshY7JCv/view?usp=sharing) file into the code folder and unzip it. There are five frozen tensorflow models:
 
@@ -29,17 +29,17 @@ Before running the code, please first download the [model](https://drive.google.
 4. *detection_graph_640x480_optimized.pb*: an optimized version of the detection model.
 5. *ocr_graph_optimized.pb*:  an optimized version of the recognition model.
 
+Please place the frozen_model folder in src/button_recognition/scripts/ocr_rnn_lib
 For running on laptops and desktops (x86_64), you may need to install some packages :
 
-1. `sudo apt install libjpeg-dev libpng12-dev libfreetype6-dev libxml2-dev libxslt1-dev `
+1. `sudo apt install libjpeg-dev libpng-dev libfreetype6-dev libxml2-dev libxslt1-dev `
 2. `sudo apt install ttf-mscorefonts-installer`
 3. `pip install pillow matplotlib lxml imageio --user` 
 4. `git clone https://github.com/zhudelong/ocr-rcnn-v2.git`
-5. `cd ocr-rcnn-v2`
-6. ``mv frozen/ ocr-rcnn-v2/``
+5. `cd ocr-rcnn-v2/src/button_recognition/scripts/ocr_rcnn_lib`
 7. `python inference.py`  (slow version with two models loaded separately) 
-8. ``python inference_640x480.py`` (fast version with two models merged)
-9. `python ocr-rcnn-v2-visual.py` (for visualization)
+7. ``python3 inference_640x480.py`` (fast version with two models merged)
+8. `python3 ocr-rcnn-v2-visual.py` (for visualization)
 
 For Nvidia TX-2 platform:
 

@@ -88,16 +88,16 @@ class CharacterRecognizer:
   def visualize_recognition_result(image_np, text, scores):
     img_pil = Image.fromarray(image_np)
     img_show = ImageDraw.Draw(img_pil)
-    # font = ImageFont.truetype('/Library/Fonts/Arial.ttf', 60)
-    img_show.text((45, 60), text=text,fill=(255, 0, 255))
+    font = ImageFont.truetype('./Arial.ttf', 60)
+    img_show.text((45, 60), text=text, font=font, fill=(255, 0, 255))
     img_pil.show()
 
   @staticmethod
   def draw_result(image_np, text, scores):
     img_pil = Image.fromarray(image_np)
     img_show = ImageDraw.Draw(img_pil)
-    # font = ImageFont.truetype('/Library/Fonts/Arial.ttf', 60)
-    img_show.text((45, 60), text=text,fill=(255, 0, 255))
+    font = ImageFont.truetype('./Arial.ttf', 60)
+    img_show.text((45, 60), text=text, font=font, fill=(255, 0, 255))
     return img_pil
 
 

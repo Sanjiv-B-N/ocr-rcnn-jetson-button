@@ -71,7 +71,7 @@ if __name__ == '__main__':
       overall_time += time
       print('Time elapsed: {}'.format(time))
       cv2.imshow('panels', detector.image_show)
-      cv2.waitKey(0)
+      cv2.waitKey(0) 
       #result_show = PIL.Image.fromarray(detector.image_show)
       #result_show.show()
       #result_show.save('./demos/'+data+'.jpg')
