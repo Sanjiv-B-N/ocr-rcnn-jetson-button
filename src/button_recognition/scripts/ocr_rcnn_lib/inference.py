@@ -2,8 +2,9 @@
 from __future__ import print_function
 import os
 import cv2
-import imageio
+import imageio.v2 as imageio
 import PIL.Image
+import io
 import numpy as np
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
@@ -50,7 +51,7 @@ def warm_up(detector, recognizer):
   recognizer.predict(button)
 
 if __name__ == '__main__':
-    data_dir = '/home/satarw/Documents/ocr-rcnn-v2/src/button_recognition/scripts/ocr_rcnn_lib/test_panels'
+    data_dir = './test_panels'
     data_list = get_image_name_list(data_dir)
     detector = ButtonDetector()
     recognizer = CharacterRecognizer(verbose=False)
@@ -58,7 +59,9 @@ if __name__ == '__main__':
     overall_time = 0
     for data in data_list:
       img_path = os.path.join(data_dir, data+'.jpg')
-      img_np = np.asarray(PIL.Image.open(tf.gfile.GFile(img_path)))
+      with open(img_path, 'rb') as f:
+          img_np = np.asarray(PIL.Image.open(io.BytesIO(f.read())))
+      # img_np = np.asarray(PIL.Image.open(tf.gfile.GFile(img_path)))
       t0 = cv2.getTickCount()
       boxes, scores, _ = detector.predict(img_np)
       button_patches, button_positions, _ = button_candidates(boxes, scores, img_np)

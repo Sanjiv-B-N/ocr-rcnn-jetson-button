@@ -34,7 +34,7 @@ class CharacterRecognizer:
 
     # load graph and label map from default folder
     if self.graph_path is None:
-      self.graph_path = '/home/satarw/Documents/ocr-rcnn-v2/src/button_recognition/scripts/ocr_rcnn_lib/frozen_model/ocr_graph.pb'
+      self.graph_path = './frozen_model/ocr_graph.pb'
 
     # check existence of the two files
     if not os.path.exists(self.graph_path):
@@ -88,8 +88,8 @@ class CharacterRecognizer:
   def visualize_recognition_result(image_np, text, scores):
     img_pil = Image.fromarray(image_np)
     img_show = ImageDraw.Draw(img_pil)
-    font = ImageFont.truetype('/Library/Fonts/Arial.ttf', 60)
-    img_show.text((45, 60), text=text, font=font, fill=(255, 0, 255))
+    # font = ImageFont.truetype('/Library/Fonts/Arial.ttf', 60)
+    img_show.text((45, 60), text=text,fill=(255, 0, 255))
     img_pil.show()
 
   @staticmethod
@@ -103,7 +103,7 @@ class CharacterRecognizer:
 
 if __name__ == '__main__':
   recognizer = CharacterRecognizer(verbose=False)
-  image = imageio.imread('/home/satarw/Documents/ocr-rcnn-v2/src/button_recognition/scripts/ocr_rcnn_lib/test_buttons/3_9.png')
+  image = imageio.imread('./test_buttons/3_9.png')
   _, _, img =recognizer.predict(image,True)
   image = Image.fromarray(img)
   image.show()

@@ -4,6 +4,7 @@ import os
 import cv2
 import PIL.Image
 import numpy as np
+import io
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
 from button_detection import ButtonDetector
@@ -51,7 +52,9 @@ if __name__ == '__main__':
     overall_time = 0
     for data in data_list:
       img_path = os.path.join(data_dir, data+'.jpg')
-      img_np = np.asarray(PIL.Image.open(tf.gfile.GFile(img_path)))
+      with open(img_path, 'rb') as f:
+          img_np = np.asarray(PIL.Image.open(io.BytesIO(f.read())))
+      # img_np = np.asarray(PIL.Image.open(tf.gfile.GFile(img_path)))
       t0 = cv2.getTickCount()
 
       boxes, scores, _ = detector.predict(img_np, True)
