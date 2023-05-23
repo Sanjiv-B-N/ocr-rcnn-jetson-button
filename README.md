@@ -15,7 +15,7 @@ Cascaded OCR-RCNN is designed for autonomous elevator manipulation, the goal of 
 1.  Ubuntu == 22.04 (Arch linux also work but equivalent packages need to be installed)
 2.  TensorFlow v2
 3.  Python3
-4.  Tensorrt == 8.6.1 
+4.  Tensorrt == 8.6.1 (optional)
 5.  2GB GPU (or shared) memory (optional)
 
 ### Inference
