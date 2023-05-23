@@ -64,7 +64,7 @@ if __name__ == '__main__':
         button_text, button_score, button_draw =recognizer.predict(button_img, draw=True)
         x_min, y_min, x_max, y_max = button_pos
         button_rec = cv2.resize(button_draw, (x_max-x_min, y_max-y_min))
-        detector.image_show[y_min+6:y_max-6, x_min+6:x_max-6] = button_rec[6:-6, 6:-6]
+        detector.image_show[y_min+6:y_max-6, x_min+6:x_max-6] = button_rec[6:-6, 6:-6] #overlap image of button + box + label on the original input image one button at a time
 
       t1 = cv2.getTickCount()
       time = (t1-t0)/cv2.getTickFrequency()

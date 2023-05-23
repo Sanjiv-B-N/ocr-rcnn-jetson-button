@@ -6,6 +6,7 @@ import imageio
 import PIL.Image
 import PIL.ImageOps as ImageOps
 import numpy as np
+import io
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
 from button_recognition import ButtonRecognizer
@@ -34,7 +35,9 @@ if __name__ == '__main__':
     overall_time = 0
     for data in data_list:
       img_path = os.path.join(data_dir, data+'.jpg')
-      image = PIL.Image.open(tf.gfile.GFile(img_path))
+      with open(img_path, 'rb') as f:
+        image = PIL.Image.open(io.BytesIO(f.read()))
+      # image = PIL.Image.open(tf.gfile.GFile(img_path))
       # resize to 640x480 with ratio kept
       img_thumbnail = image.thumbnail((640, 480), PIL.Image.ANTIALIAS)
       delta_w, delta_h= 640 - image.size[0], 480 - image.size[1]

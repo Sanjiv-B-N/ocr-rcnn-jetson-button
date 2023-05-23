@@ -17,7 +17,7 @@ charset = {'0': 0,  '1': 1,  '2': 2,  '3': 3,  '4': 4,  '5': 5,
 
 class CharacterRecognizer:
   def __init__(self, graph_path=None, verbose=False):
-    self.graph_path = graph_path
+    self.graph_path = graph_path #path to the model which is loaded as a graph
     self.session = None
     self.input = None
     self.output = []
@@ -58,6 +58,7 @@ class CharacterRecognizer:
     self.output.append(recognition_graph.get_tensor_by_name('predicted_scores:0'))
     # self.output.append(recognition_graph.get_tensor_by_name('predicted_text:0'))
 
+
   def clear_session(self):
     if self.session is not None:
       self.session.close()
@@ -81,6 +82,8 @@ class CharacterRecognizer:
 
 
     img_show = self.draw_result(image_np, text, score_ave) if draw else image_np
+    
+    # print(f"text = {text}")
 
     return text, score_ave, np.array(img_show)
 
@@ -103,7 +106,7 @@ class CharacterRecognizer:
 
 if __name__ == '__main__':
   recognizer = CharacterRecognizer(verbose=False)
-  image = imageio.imread('./test_buttons/3_9.png')
+  image = imageio.imread('./test_buttons/4_1.png')
   _, _, img =recognizer.predict(image,True)
   image = Image.fromarray(img)
   image.show()

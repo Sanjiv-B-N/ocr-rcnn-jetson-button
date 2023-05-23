@@ -10,15 +10,15 @@ from utils import visualization_utils as vis_util
 
 class ButtonDetector:
   def __init__(self, graph_path=None, label_path=None, verbose=False):
-    self.graph_path = graph_path
-    self.label_path = label_path
+    self.graph_path = graph_path #trained models are stored as a graph, this holds the path to that. 
+    self.label_path = label_path 
     self.category_index = None
 
-    self.session = None
-    self.input = None
-    self.output = []
+    self.session = None #session is a class for running TensorFlow operations, it can take a model as an argument, image as input and return inference as output
+    self.input = None #None for now, image will be passed in later
+    self.output = [] #inference output is stored here
     self.class_num = 1
-    self.verbose = verbose
+    self.verbose = verbose 
     self.image_show = None
 
     self.init_detector()
@@ -39,7 +39,7 @@ class ButtonDetector:
       raise IOError('Invalid label path! {}'.format(self.label_path))
 
     # load frozen graph
-    detection_graph = tf.Graph()
+    detection_graph = tf.Graph()  
     with detection_graph.as_default():
       od_graph_def = tf.GraphDef()
       with tf.gfile.GFile(self.graph_path, 'rb') as fid:
@@ -65,13 +65,18 @@ class ButtonDetector:
     if self.session is not None:
       self.session.close()
 
-  def predict(self, image_np, draw=False):
+  def predict(self, image_np, draw=False): #The function that actually runs the model and returns predictions
     img_in = np.expand_dims(image_np, axis=0)
-    boxes, scores, classes, num = self.session.run(self.output, feed_dict={self.input: img_in})
+    boxes, scores, classes, num = self.session.run(self.output, feed_dict={self.input: img_in}) #The line
     boxes, scores, classes, num = [np.squeeze(x) for x in [boxes, scores, classes, num]]
 
+    #num - total number of button detected
+    #boxes - information about where buttons are detected
+    #scores - confidence levels of buttons detected
+    #classes - There is only 1 (button) class
+
     if self.verbose:
-      self.visualize_detection_result(image_np, boxes, classes, scores, self.category_index)
+      self.visualize_detection_result(image_np, boxes, classes, scores, self.category_index) #if verbose is true, results are visualized
     if draw:
       self.image_show = np.copy(image_np)
       self.draw_result(self.image_show, boxes, classes, scores, self.category_index)
@@ -111,6 +116,6 @@ class ButtonDetector:
 
 if __name__ == '__main__':
   detector = ButtonDetector(verbose=True)
-  image = imageio.imread('./test_panels/image0.jpg')
+  image = imageio.imread('./test_panels/26.jpg')
   detector.predict(image)
   detector.clear_session()

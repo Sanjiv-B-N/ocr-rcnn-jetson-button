@@ -15,9 +15,9 @@ def button_candidates(boxes, scores, image):
   img_height = image.shape[0]
   img_width = image.shape[1]
 
-  button_scores = []
-  button_patches = []
-  button_positions = []
+  button_scores = [] #stores the score of each button (confidence)
+  button_patches = [] #stores the cropped image that encloses the button
+  button_positions = [] #stores the coordinates of the bounding box on buttons
 
   for box, score in zip(boxes, scores):
     if score < 0.5: continue
@@ -37,7 +37,7 @@ def button_candidates(boxes, scores, image):
 
 def get_image_name_list(target_path):
     assert os.path.exists(target_path)
-    image_name_list = []
+    image_name_list = [] #stores names of all files in target_path
     file_set = os.walk(target_path)
     for root, dirs, files in file_set:
       for image_name in files:
@@ -63,10 +63,10 @@ if __name__ == '__main__':
           img_np = np.asarray(PIL.Image.open(io.BytesIO(f.read())))
       # img_np = np.asarray(PIL.Image.open(tf.gfile.GFile(img_path)))
       t0 = cv2.getTickCount()
-      boxes, scores, _ = detector.predict(img_np)
-      button_patches, button_positions, _ = button_candidates(boxes, scores, img_np)
+      boxes, scores, _ = detector.predict(img_np) #get boxes and scores
+      button_patches, button_positions, _ = button_candidates(boxes, scores, img_np) #pass boxes and scores to this function and get button_patches and button positions
       for button_img in button_patches:
-        button_text, button_score, _ =recognizer.predict(button_img)
+        button_text, button_score, _ =recognizer.predict(button_img) #get button text and button_score for each of the images in button_patches
       t1 = cv2.getTickCount()
       time = (t1-t0)/cv2.getTickFrequency()
       overall_time += time

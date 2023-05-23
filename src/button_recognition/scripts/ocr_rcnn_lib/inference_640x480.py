@@ -42,7 +42,7 @@ if __name__ == '__main__':
       img_thumbnail = image.thumbnail((640, 480), PIL.Image.ANTIALIAS)
       delta_w, delta_h= 640 - image.size[0], 480 - image.size[1]
       padding = (delta_w // 2, delta_h // 2, delta_w - (delta_w // 2), delta_h - (delta_h // 2))
-      new_im = ImageOps.expand(image, padding)
+      new_im = ImageOps.expand(image, padding) 
       img_np = np.copy(np.asarray(new_im))
       # perform button recognition
       t0 = cv2.getTickCount()
