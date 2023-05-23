@@ -20,8 +20,7 @@ Cascaded OCR-RCNN is designed for autonomous elevator manipulation, the goal of 
 
 ### Inference
 
-
-Before running the code, please first download the [model](https://drive.google.com/file/d/1FVXI-G-EsCrkKbknhHL-9Y1pBshY7JCv/view?usp=sharing) file into the code folder and unzip it. There are five frozen tensorflow models:
+There are five frozen tensorflow models:
 
 1. *detection_graph.pb*: a general detection model that can handle panel images with arbitrary size.
 2.  *ocr_graph.pb*: a character recognition model that can handle button images with a size of 180x180.
@@ -29,7 +28,6 @@ Before running the code, please first download the [model](https://drive.google.
 4. *detection_graph_640x480_optimized.pb*: an optimized version of the detection model.
 5. *ocr_graph_optimized.pb*:  an optimized version of the recognition model.
 
-Please place the frozen_model folder in src/button_recognition/scripts/ocr_rnn_lib
 
 For running on laptops and desktops (x86_64), you may need to install some packages :
 

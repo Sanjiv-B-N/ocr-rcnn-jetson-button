@@ -10,3 +10,4 @@
 *.pyc
 ./frozen_model
 ./frozen_model/*
+ocr_rcnn/
