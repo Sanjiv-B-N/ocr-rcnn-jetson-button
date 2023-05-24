@@ -93,7 +93,7 @@ For Nvidia TX-2 platform:
       ./configure
       ```
 
-   7. Start compiling tensorflow-1.12
+   7. Begin compiling tensorflow-1.12
 
       ```bash
       bazel build --config=opt --config=cuda --local_resources 4096,2.0,1.0 //tensorflow/tools/pip_package:build_pip_package --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0"
