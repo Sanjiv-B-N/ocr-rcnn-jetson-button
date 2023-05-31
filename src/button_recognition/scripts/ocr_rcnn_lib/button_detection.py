@@ -28,8 +28,8 @@ class ButtonDetector:
 
     # load graph and label map from default folder
     if self.graph_path is None:
-      self.graph_path = './d0/saved_model/saved_model.pb'
-      # self.graph_path = './frozen_model/detection_graph.pb'
+      # self.graph_path = './d0/saved_model/saved_model.pb'
+      self.graph_path = './frozen_model/detection_graph.pb'
     if self.label_path is None:
       self.label_path = './frozen_model/button_label_map.pbtxt'
 
@@ -45,7 +45,7 @@ class ButtonDetector:
       od_graph_def = tf.GraphDef()
       with tf.gfile.GFile(self.graph_path, 'rb') as fid:
         serialized_graph = fid.read()
-        print(serialized_graph)
+        # print(serialized_graph)
         od_graph_def.ParseFromString(serialized_graph)
         tf.import_graph_def(od_graph_def, name='')
     self.session = tf.Session(graph=detection_graph)

@@ -8,8 +8,7 @@
 **/*.msg~
 *~
 *.pyc
-./frozen_model
-./frozen_model/*
+src/button_recognition/scripts/ocr_rcnn_lib/frozen_model
 ocr_rcnn/
-./src/button_recognition/scripts/ocr_rcnn_lib/models
-./src/button_recognition/scripts/ocr_rcnn_lib/exported_models
+src/button_recognition/scripts/ocr_rcnn_lib/models
+src/button_recognition/scripts/ocr_rcnn_lib/exported_models

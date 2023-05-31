@@ -6,6 +6,7 @@ import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
 from PIL import Image, ImageDraw, ImageFont
 
+
 charset = {'0': 0,  '1': 1,  '2': 2,  '3': 3,  '4': 4,  '5': 5,
            '6': 6,  '7': 7,  '8': 8,  '9': 9,  'A': 10, 'B': 11,
            'C': 12, 'D': 13, 'E': 14, 'F': 15, 'G': 16, 'H': 17,
@@ -24,7 +25,7 @@ class CharacterRecognizer:
     self.class_num = 1
     self.verbose = verbose
 
-    self.idx_lbl = {}
+    self.idx_lbl = {} #this is the functionally inverse to charset
     for key in charset.keys():
       self.idx_lbl[charset[key]] = key
     self.init_recognizer()

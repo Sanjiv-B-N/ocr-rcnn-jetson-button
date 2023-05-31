@@ -56,7 +56,8 @@ if __name__ == '__main__':
     detector = ButtonDetector()
     recognizer = CharacterRecognizer(verbose=False)
     warm_up(detector, recognizer)
-    overall_time = 0
+    overall_time_det = 0
+    overall_time_label = 0
     for data in data_list:
       img_path = os.path.join(data_dir, data+'.jpg')
       with open(img_path, 'rb') as f:
@@ -64,16 +65,23 @@ if __name__ == '__main__':
       # img_np = np.asarray(PIL.Image.open(tf.gfile.GFile(img_path)))
       t0 = cv2.getTickCount()
       boxes, scores, _ = detector.predict(img_np) #get boxes and scores
+      t1 = cv2.getTickCount()
+      time = (t1-t0)/cv2.getTickFrequency()
+      print('Time for detection: {}'.format(time))
+      overall_time_det += time
       button_patches, button_positions, _ = button_candidates(boxes, scores, img_np) #pass boxes and scores to this function and get button_patches and button positions
+      t0 = cv2.getTickCount()
       for button_img in button_patches:
         button_text, button_score, _ =recognizer.predict(button_img) #get button text and button_score for each of the images in button_patches
       t1 = cv2.getTickCount()
       time = (t1-t0)/cv2.getTickFrequency()
-      overall_time += time
-      print('Time elapsed: {}'.format(time))
+      overall_time_label += time
+      print('Time for labelling: {}'.format(time))
 
-    average_time = overall_time / len(data_list)
-    print('Average_used:{}'.format(average_time))
+    average_time_det = overall_time_det / len(data_list)
+    average_time_label = overall_time_label / len(data_list)
+    print('Average time for detection:{}'.format(average_time_det))
+    print('Average time for labelling:{}'.format(average_time_label))
     detector.clear_session()
     recognizer.clear_session()
 
