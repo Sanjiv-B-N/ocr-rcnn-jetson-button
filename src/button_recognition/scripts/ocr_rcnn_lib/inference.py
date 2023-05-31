@@ -68,7 +68,7 @@ if __name__ == '__main__':
       for button_img in button_patches:
         button_text, button_score, _ =recognizer.predict(button_img) #get button text and button_score for each of the images in button_patches
       t1 = cv2.getTickCount()
-          
+      time = (t1-t0)/cv2.getTickFrequency()
       overall_time += time
       print('Time elapsed: {}'.format(time))
 

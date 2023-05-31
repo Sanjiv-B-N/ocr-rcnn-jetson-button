@@ -1,14 +1,21 @@
 import os
-import PIL.Image
+from PIL import Image
 import imageio
+import cv2
 import numpy as np
 import tensorflow as tf
-from utils import label_map_util
+import sys
 from utils import visualization_utils as vis_util
-
+from object_detection.utils import label_map_util
+from object_detection.utils import config_util
+from object_detection.utils import visualization_utils as viz_utils
+from object_detection.builders import model_builder
+path2scripts = './models/research'
+sys.path.insert(0, path2scripts) # making scripts in models/research available for import
 class ButtonDetector:
-  def __init__(self, model_path=None, label_path=None, verbose=False):
-    self.model_path = model_path #stores path to saved model
+  def __init__(self, config_path=None, label_path=None, model_path=None, verbose=False):
+    self.config_path = config_path #stores path to saved model
+    self.model_path = model_path
     self.loaded_model = None
     self.label_path = label_path #stores path to label map 
     self.category_index = None #required for working with label_map and visualization
@@ -21,45 +28,63 @@ class ButtonDetector:
   def init_detector(self):
 
     #set paths  
-    self.model_path = './d0/saved_model/'
+    self.config_path = '.exported_models/d0/pipeline.config'
     self.label_path = './frozen_model/button_label_map.pbtxt'
+    self.model_path = './exported_models/d0/checkpoint/' 
 
-    # check existence of the two files
-    if not os.path.exists(self.model_path):
-      raise IOError('Invalid detector_graph path! {}'.format(self.model_path))
+    # check existence of the files
+    if not os.path.exists(self.config_path):
+      raise IOError('Invalid config path! {}'.format(self.config_path))
     if not os.path.exists(self.label_path):
       raise IOError('Invalid label path! {}'.format(self.label_path))
+    if not os.path.exists(self.model_path):
+      raise IOError('Invalid model path! {}'.format(self.model_path))
     
-    try:
-        self.loaded_model = tf.keras.models.load_model(self.model_path)
-    except Exception as e:
-        print("Error loading the model:", e)
+    configs = config_util.get_configs_from_pipeline_file(self.config_path) # importing config
+    model_config = configs['model'] # recreating model config
+    self.loaded_model = model_builder.build(model_config=model_config, is_training=False) # importing model
 
-    # Load label map
-    label_map = label_map_util.load_labelmap(self.label_path)
-    categories = label_map_util.convert_label_map_to_categories(
-      label_map, max_num_classes=self.class_num, use_display_name=True)
-    self.category_index = label_map_util.create_category_index(categories)
+    ckpt = tf.compat.v2.train.Checkpoint(model=self.loaded_model)
+    ckpt.restore(os.path.join(self.model_path, 'ckpt-0')).expect_partial()
+
+    self.label_path = './data/button_label_map.pbtxt' # TODO: provide a path to the label map file
+    self.category_index = label_map_util.create_category_index_from_labelmap(self.label_path,use_display_name=True)
+
+    def detect_fn(image):
+      """
+      Detect objects in image.
+      
+      Args:
+        image: (tf.tensor): 4D input image
+        
+      Returs:
+        detections (dict): predictions that model made
+      """
+
+      image, shapes = self.loaded_model.preprocess(image)
+      prediction_dict = self.loaded_model.predict(image, shapes)
+      detections = self.loaded_model.postprocess(prediction_dict, shapes)
+
+      return detections
+    
 
   def predict(self, image_np, draw=False):
-    img_in = np.expand_dims(image_np, axis=0)
+      image = tf.convert_to_tensor(np.expand_dims(image_np, 0), dtype=tf.float32)
 
-    predict_fn = self.loaded_model.signatures["serving_default"]
-    preds =  predict_fn(img_in) #get predictions from model
-    print(preds)
-    # boxes, scores, classes, num = [np.squeeze(x) for x in [boxes, scores, classes, num]]
+      image, shapes = self.loaded_model.preprocess(image)
+      prediction_dict = self.loaded_model.predict(image, shapes)
+      detections = self.loaded_model.postprocess(prediction_dict, shapes)
 
-    # if self.verbose:
-    #   self.visualize_detection_result(image_np, boxes, classes, scores, self.category_index) #if verbose is true, results are visualized
-    # if draw:
-    #   self.image_show = np.copy(image_np)
-    #   self.draw_result(self.image_show, boxes, classes, scores, self.category_index)   
-
-    return preds 
+      return detections
 
 if __name__ == '__main__':
   detector = ButtonDetector(verbose=True)
   image = imageio.imread('./test_panels/26.jpg')
+  t0 = cv2.getTickCount()
   detector.predict(image)
+  t1 = cv2.getTickCount()
+  time = (t1-t0)/cv2.getTickFrequency()
+  print(time)
+
 
       
