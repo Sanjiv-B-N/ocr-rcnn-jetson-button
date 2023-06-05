@@ -67,9 +67,9 @@ class CharacterRecognizer:
   def predict(self, image_np, draw=False):
     assert image_np.shape == (180, 180, 3)
     img_in = np.expand_dims(image_np, axis=0)
-    codes, scores = self.session.run(self.output, feed_dict={self.input: img_in})
+    codes, scores = self.session.run(self.output, feed_dict={self.input: img_in}) #returns codes and scores for each code (single letter)
     codes, scores = [np.squeeze(x) for x in [codes, scores]]
-
+    print(len(codes), codes)
     score_ave = 0
     text = ''
     for char, score in zip(codes, scores):
@@ -107,8 +107,8 @@ class CharacterRecognizer:
 
 if __name__ == '__main__':
   recognizer = CharacterRecognizer(verbose=False)
-  image = imageio.imread('./test_buttons/4_1.png')
+  image = imageio.imread('./test_buttons/3_7.png')
   _, _, img =recognizer.predict(image,True)
   image = Image.fromarray(img)
-  image.show()
+  image.show()  
   recognizer.clear_session()

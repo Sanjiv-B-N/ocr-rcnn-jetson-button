@@ -8,7 +8,16 @@ Forked from [here](https://github.com/zhudelong/ocr-rcnn-v2/tree/master)
     <img src="./src/button_recognition/scripts/ocr_rcnn_lib/demos/demo_10.jpg">
 
 
-Cascaded OCR-RCNN is designed for autonomous elevator manipulation, the goal of which is to enable the robot to autonomously operate elevators that are previously unvisited. This repository contains the perception part of my internship project with Ugo Inc. Till date, I have made the code compatible for higher versions of ubuntu, python, Tensorflow and Tensorrt. 
+Cascaded OCR-RCNN is designed for autonomous elevator manipulation, the goal of which is to enable the robot to autonomously operate elevators that are previously unvisited. This repository contains the perception part of my internship project with Ugo Inc. 
+
+### Updates
+
+1. Edited the tensorflow import to make it compatible with tensorflow v2. 
+
+2. Identified outdated packages in the requirements and replaced them with equivalent ones. 
+
+3. Altered inference script to check times for button detection and character recognition seperately
+
 
 ### Requirements
 

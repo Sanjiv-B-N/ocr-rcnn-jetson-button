@@ -3,15 +3,19 @@ from PIL import Image
 import imageio
 import cv2
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import sys
-from utils import visualization_utils as vis_util
+
 from object_detection.utils import label_map_util
 from object_detection.utils import config_util
 from object_detection.utils import visualization_utils as viz_utils
 from object_detection.builders import model_builder
+
+from utils import visualization_utils as vis_util
 path2scripts = './models/research'
 sys.path.insert(0, path2scripts) # making scripts in models/research available for import
+
 class ButtonDetector:
   def __init__(self, config_path=None, label_path=None, model_path=None, verbose=False):
     self.config_path = config_path #stores path to saved model

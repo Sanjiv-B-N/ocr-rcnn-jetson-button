@@ -3,8 +3,12 @@ import os
 import PIL.Image
 import imageio
 import numpy as np
+
+
+
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
+
 from utils import label_map_util
 from utils import visualization_utils as vis_util
 
@@ -117,7 +121,10 @@ class ButtonDetector:
     )
 
 if __name__ == '__main__':
-  detector = ButtonDetector(verbose=True)
+  detector = ButtonDetector(verbose=False)
   image = imageio.imread('./test_panels/26.jpg')
-  detector.predict(image)
+  boxes, scores, classes = detector.predict(image)
+  print(boxes)
+  print(scores)
+  print(classes)
   detector.clear_session()

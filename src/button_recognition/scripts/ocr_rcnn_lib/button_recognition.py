@@ -203,7 +203,7 @@ class ButtonRecognizer:
       y_center = (y_max-y_min) / 2.0
       font_size = min(x_center, y_center)*1.1
       text_center = int(x_center-0.5*font_size), int(y_center-0.5*font_size)
-      font = ImageFont.truetype('/Library/Fonts/Arial.ttf', int(font_size))
+      font = ImageFont.truetype('Arial.ttf', int(font_size))
       img_show.text(text_center, text=item[2], font=font, fill=(255, 0, 255))
       # img_pil.show()
       image_np[y_min: y_max, x_min: x_max] = np.array(img_pil)
@@ -211,7 +211,7 @@ class ButtonRecognizer:
 
 if __name__ == '__main__':
   recognizer = ButtonRecognizer(use_optimized=True)
-  image = imageio.imread('./test_panels/1.jpg')
+  image = imageio.imread('./test_panels/8.jpg')
   recognition_list =recognizer.predict(image,True)
   image = Image.fromarray(image)
   image.show()
