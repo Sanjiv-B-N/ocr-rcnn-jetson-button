@@ -2,11 +2,6 @@ Forked from [here](https://github.com/zhudelong/ocr-rcnn-v2/tree/master)
 
 # OCR-RCNN: An Accurate and Efficient Framework for Elevator Button Recognition
 
-# FOR ICRA-2021, THE VIDEO DEMO CAN BE FOUND AT https://youtu.be/GD2MeZhoYXg
-
-  <p align="center">
-    <img src="./src/button_recognition/scripts/ocr_rcnn_lib/demos/demo_10.jpg">
-
 
 Cascaded OCR-RCNN is designed for autonomous elevator manipulation, the goal of which is to enable the robot to autonomously operate elevators that are previously unvisited. This repository contains the perception part of my internship project with Ugo Inc. 
 
