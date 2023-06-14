@@ -12,6 +12,8 @@ Cascaded OCR-RCNN is designed for autonomous elevator manipulation, the goal of 
 2. Identified outdated packages in the requirements and replaced them with equivalent ones. 
 
 3. Altered inference script to check times for button detection and character recognition seperately
+4. To run on the Jetson Nano before continuing with this tutorial follow this github to set up the environment properly.
+5. https://github.com/Sanjiv-B-N/jetson-nano-setup 
 
 
 ### Requirements
