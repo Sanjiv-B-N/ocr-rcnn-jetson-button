@@ -35,7 +35,7 @@ There are five frozen tensorflow models:
 5. *ocr_graph_optimized.pb*:  an optimized version of the recognition model.
 
 
-For running on laptops and desktops (x86_64), you may need to install some packages :
+For running on the Jetson Nano/PCs(x86_64), you may need to install some packages :
 
 1. `sudo apt install libjpeg-dev libpng-dev libfreetype6-dev libxml2-dev libxslt1-dev `
 2. `sudo apt install ttf-mscorefonts-installer`
